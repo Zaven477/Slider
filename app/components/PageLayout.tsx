@@ -1,38 +1,11 @@
-import Image from "next/image";
-import stempsLogo from "../icons/logo-big.png";
-import entranceLogo from "../icons/Exclude.png";
+import { Header } from "./Header";
+import { MainContent } from "./MainContent";
 
 export const PageLayout = () => {
   return (
-    <header className="bg-[rgba(250,250,250,1)] h-[60px] border">
-      <div className="flex items-center h-full gap-3 w-[1400px] mx-auto">
-        <Image src={stempsLogo} alt="Stemps Logo" width={28} height={28} />
-        <div>STEMPS</div>
-        <div className="flex-1">
-          <nav>
-            <ul className="flex gap-6 justify-center">
-              <li>
-                <a>О школе</a>
-              </li>
-              <li>
-                <a>Курсы</a>
-              </li>
-              <li>
-                <a>Библиотека</a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-        <div className="flex gap-3">
-          <div>Вход</div>
-          <Image
-            src={entranceLogo}
-            alt="Entrance Logo"
-            width={30}
-            height={28}
-          />
-        </div>
-      </div>
-    </header>
+    <div>
+      <Header />
+      <MainContent />
+    </div>
   );
 };
