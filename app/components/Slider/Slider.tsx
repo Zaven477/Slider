@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { sliders } from "./utils";
 import { useState } from "react";
+import { ResponsiveSlider } from "./ResponsiveSlider";
 
 export const Slider = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -21,7 +22,7 @@ export const Slider = () => {
   };
 
   return (
-    <div className="mx-auto w-[1400px] flex gap-3 overflow-hidden">
+    <div className="mx-auto max-w-[1400px] flex gap-3 overflow-hidden">
       <div
         className="flex gap-3 duration-[2000ms]"
         style={{ transform: `translateX(-${currentIndex * 66}%)` }}
@@ -30,19 +31,20 @@ export const Slider = () => {
           return (
             <div
               key={slide.id}
-              className="shadow-md w-[335px] mt-[20px] rounded-md bg-[rgba(240,240,240,1)] cursor-pointer"
+              className="shadow-md w-[335px] mt-[20px] rounded-md bg-[rgba(240,240,240,1)] cursor-pointer hidden md:flex"
               onClick={nextSlider}
             >
               <div className="ml-[10px]">
                 <Image src={slide.src} alt="exclude1" className="mt-[15px]" />
                 <div className="text-[32px] font-normal w-[330px] mt-[40px]">
-                  {slide.text}
+                  {slide.title}
                 </div>
               </div>
             </div>
           );
         })}
       </div>
+      <ResponsiveSlider />
     </div>
   );
 };
