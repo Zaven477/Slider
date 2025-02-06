@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { sliders } from "./utils";
 
 export const ResponsiveSlider = () => {
@@ -19,6 +19,11 @@ export const ResponsiveSlider = () => {
     });
   };
 
+  useEffect(() => {
+    const interval = setInterval(nextSlide, 5000);
+    return () => clearInterval(interval);
+  }, [currentIndex]);
+
   return (
     <div
       className="flex gap-5 duration-[2000ms]"
@@ -28,7 +33,7 @@ export const ResponsiveSlider = () => {
         return (
           <div
             key={slide.id}
-            className="shadow-md w-[400px] mt-40 rounded-md bg-[rgba(240,240,240,1)] cursor-pointer md:hidden"
+            className="shadow-md w-full mt-40 rounded-md bg-[rgba(240,240,240,1)] cursor-pointer md:hidden"
             onClick={nextSlide}
           >
             <div className="ml-[10px] flex gap-6 items-center">
@@ -37,9 +42,7 @@ export const ResponsiveSlider = () => {
                 {slide.title}
               </div>
             </div>
-            <div className="w-[326px] px-3 pt-10">
-              {slide.text}
-            </div>
+            <div className="w-[326px] px-3 pt-10">{slide.text}</div>
           </div>
         );
       })}
