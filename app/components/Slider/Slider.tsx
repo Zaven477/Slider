@@ -1,31 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import { sliders } from "./utils";
-import { useState } from "react";
 import { ResponsiveSlider } from "./ResponsiveSlider";
+import { useSlider } from "./hook";
 
 export const Slider = () => {
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-
-  const itemsPerPage = 4;
-  const totalPages = Math.ceil(sliders.length / itemsPerPage);
-
-  const nextSlider = () => {
-    setCurrentIndex((prev) => {
-      if (prev + 1 < totalPages) {
-        return prev + 1;
-      } else {
-        return 0;
-      }
-    });
-  };
-
+  const {currentIndex, sliders, nextSlider, offset} = useSlider();
+  
   return (
     <div className="mx-auto max-w-[1400px] flex gap-3 overflow-hidden">
       <div
         className="flex gap-3 duration-[2000ms]"
-        style={{ transform: `translateX(-${currentIndex * 66}%)` }}
+        style={{ transform: `translateX(-${currentIndex * offset}%)` }}
       >
         {sliders.map((slide) => {
           return (

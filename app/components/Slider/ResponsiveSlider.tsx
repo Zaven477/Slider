@@ -1,50 +1,8 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { sliders } from "./utils";
+import { useResponsiveSlider } from "./useResponsiveSlider";
 
 export const ResponsiveSlider = () => {
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-
-  const displaySlidesPage = 1;
-
-  const countPages = sliders.length / displaySlidesPage;
-
-  const [progress, setProgress] = useState<number[]>(
-    new Array(countPages).fill(0)
-  );
-
-  const nextSlide = () => {
-    setCurrentIndex((prev) => {
-      const nextIndex = prev + 1 < countPages ? prev + 1 : 0;
-
-      if (nextIndex === 0) {
-        setProgress(new Array(countPages).fill(0));
-      }
-
-      return nextIndex;
-    });
-  };
-
-  useEffect(() => {
-    const interval = setInterval(nextSlide, 6000);
-    return () => clearInterval(interval);
-  }, [currentIndex]);
-
-  useEffect(() => {
-    const progressInterval = setInterval(() => {
-      setProgress((prevProgress) => {
-        const newProgress = [...prevProgress];
-
-        if (newProgress[currentIndex] < 100) {
-          newProgress[currentIndex] = newProgress[currentIndex] + 2;
-        }
-
-        return newProgress;
-      });
-    }, 100);
-
-    return () => clearInterval(progressInterval);
-  }, [currentIndex]);
+  const { progress, currentIndex, nextSlide, sliders, offset } = useResponsiveSlider();
 
   return (
     <div>
@@ -70,7 +28,7 @@ export const ResponsiveSlider = () => {
       </div>
       <div
         className="flex gap-5 duration-[2000ms]"
-        style={{ transform: `translateX(-${currentIndex * 16.8}%)` }}
+        style={{ transform: `translateX(-${currentIndex * offset}%)` }}
       >
         {sliders.map((slide) => {
           return (
