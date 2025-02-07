@@ -6,7 +6,7 @@ export const ResponsiveSlider = () => {
 
   return (
     <div>
-      <div className="flex gap-3 absolute top-60">
+      <div className="flex gap-3 absolute top-60 md:hidden">
         {progress.map((prog, index) =>
           index === currentIndex ? (
             <div
